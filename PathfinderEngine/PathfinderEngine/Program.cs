@@ -6,23 +6,32 @@ using System.Threading.Tasks;
 
 namespace PathfinderEngine
 {
+    public class Die
+    {
+        public int dieValue;
+
+        public Die(int value)
+        {
+            dieValue = value;
+        }
+
+        public int roll()
+        {
+            Random rand = new Random();
+            return rand.Next(1, dieValue + 1);
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
-            Random dice = new Random();
-
-            int die = 20;
-            int num = 1;
-            int mod = -3;
-            int roll = 0;
-
-            for (int i = 0; i < num; i++)
-                roll += dice.Next(1, die + 1);
-
-            int total = roll + mod;
-
-            Console.WriteLine("Roll is " + roll + ". With mod of " + mod + ", total is " + total + ".");
+            while (true)
+            {
+                Die example = new Die(Int32.Parse(Console.ReadLine()));
+                if (example.dieValue == 0) break;
+                Console.WriteLine(example.roll());
+            }
         }
     }
 }
