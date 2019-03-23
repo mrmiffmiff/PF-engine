@@ -26,11 +26,18 @@ namespace PathfinderEngine
     {
         static void Main(string[] args)
         {
-            while (true)
-            {
-                Die example = new Die(Int32.Parse(Console.ReadLine()));
-                if (example.dieValue == 0) break;
-                Console.WriteLine(example.roll());
+            while (true) {
+                string dieCode = Console.ReadLine();
+                string[] splitCode = dieCode.Split('d');
+                try { if (Int32.Parse(splitCode[0]) == 0) break; }
+                catch { System.Environment.Exit(0); }
+                int result = 0;
+                for (int i = 0; i < Int32.Parse(splitCode[0]); i++)
+                {
+                    Die useDie = new Die(Int32.Parse(splitCode[1]));
+                    result += useDie.roll();
+                }
+                Console.WriteLine(result);
             }
         }
     }
