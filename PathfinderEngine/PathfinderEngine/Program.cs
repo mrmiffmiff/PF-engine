@@ -20,6 +20,14 @@ namespace PathfinderEngine
             Random rand = new Random();
             return rand.Next(1, dieValue + 1);
         }
+
+        public int roll(int mod)
+        {
+            Random rand = new Random();
+            int rolled = rand.Next(1, dieValue + 1);
+            rolled += mod;
+            return rolled;
+        }
     }
 
     public static class StatMethods
@@ -35,8 +43,14 @@ namespace PathfinderEngine
         static void Main(string[] args)
         {
             while (true) {
-                string dieCode = Console.ReadLine();
-                dieCode = StatMethods.RemoveWhitespace(dieCode);
+                string fullDieCode = Console.ReadLine();
+                fullDieCode = StatMethods.RemoveWhitespace(fullDieCode);
+                fullDieCode = fullDieCode.Replace("+-", "-");
+                fullDieCode = fullDieCode.Replace("-", "+-");
+                string[] splitFullCode = fullDieCode.Split('+');
+                string dieCode = splitFullCode[0];
+                int mod = 0;
+                if (splitFullCode.Length > 1) mod = Int32.Parse(splitFullCode[1]);
                 string[] splitCode = dieCode.Split('d');
                 try { if (Int32.Parse(splitCode[0]) == 0) break; }
                 catch { System.Environment.Exit(0); }
@@ -44,7 +58,7 @@ namespace PathfinderEngine
                 for (int i = 0; i < Int32.Parse(splitCode[0]); i++)
                 {
                     Die useDie = new Die(Int32.Parse(splitCode[1]));
-                    result += useDie.roll();
+                    result += useDie.roll(mod);
                 }
                 Console.WriteLine(result);
             }
