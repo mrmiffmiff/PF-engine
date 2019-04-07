@@ -26,7 +26,7 @@ namespace PathfinderEngine
     {
         public static string RemoveWhitespace(this string str)
         {
-            return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+            return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries)); //from Stack Overflow, seems to work slightly faster than RegEx
         }
     }
 
